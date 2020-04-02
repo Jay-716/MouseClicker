@@ -6,3 +6,12 @@ G:\MouseClicker\MouseClicker\MouseClicker\obj\Debug\MouseClicker.csproj.Generate
 G:\MouseClicker\MouseClicker\MouseClicker\obj\Debug\MouseClicker.exe
 G:\MouseClicker\MouseClicker\MouseClicker\obj\Debug\MouseClicker.pdb
 G:\MouseClicker\MouseClicker\MouseClicker\obj\Debug\MouseClicker.MyForm.resources
+G:\MouseClicker\MouseClicker\bin\Debug\MouseClicker.exe.config
+G:\MouseClicker\MouseClicker\bin\Debug\MouseClicker.exe
+G:\MouseClicker\MouseClicker\bin\Debug\MouseClicker.pdb
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.csprojAssemblyReference.cache
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.MyForm.resources
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.Properties.Resources.resources
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.csproj.GenerateResource.cache
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.exe
+G:\MouseClicker\MouseClicker\obj\Debug\MouseClicker.pdb
