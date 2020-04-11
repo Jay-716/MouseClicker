@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace MouseClicker {
@@ -39,11 +40,12 @@ namespace MouseClicker {
 
         private void buttonStart_Click(object sender, EventArgs e) {
             Action action = new Action(MouseClickStart);
-            numericUpDown1.Enabled = false;
-            numericUpDown2.Enabled = false;
-            numericUpDown3.Enabled = false;
-            comboBox1.Enabled = false;
-            buttonStart.Enabled = false;
+            //numericUpDown1.Enabled = false;
+            //numericUpDown2.Enabled = false;
+            //numericUpDown3.Enabled = false;
+            //comboBox1.Enabled = false;
+            //buttonStart.Enabled = false;
+            this.Enabled = false;
             action.BeginInvoke(null, null);
         }
 
@@ -64,11 +66,12 @@ namespace MouseClicker {
             action.Invoke(Count, SleepTimePerClick, timer);
             Thread.Sleep(TotalTime * 1000);
             timer.Stop();
-            numericUpDown1.Enabled = true;
-            numericUpDown2.Enabled = true;
-            numericUpDown3.Enabled = true;
-            comboBox1.Enabled = true;
-            buttonStart.Enabled = true;
+            //numericUpDown1.Enabled = true;
+            //numericUpDown2.Enabled = true;
+            //numericUpDown3.Enabled = true;
+            //comboBox1.Enabled = true;
+            //buttonStart.Enabled = true;
+            this.Enabled = true;
         }
     }
 
@@ -103,8 +106,18 @@ namespace MouseClicker {
             Mouse.ClickType = 0;
             Mouse.Timer = timer;
             timer.Interval = SleepTimePerClick;
-            timer.Elapsed += Timer_Tick;
+            timer.Elapsed += Timer_Tick_Left;
             timer.Start();
+        }
+
+        private static void Timer_Tick_Left(object sender, ElapsedEventArgs e) {
+            if (Mouse.Count >= 0) {
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                Mouse.Count -= 1;
+            } else {
+                Mouse.Timer.Stop();
+                return;
+            }
         }
 
         public static void MouseRightClick(int Count, int SleepTimePerClick, System.Timers.Timer timer) {
@@ -112,8 +125,18 @@ namespace MouseClicker {
             Mouse.ClickType = 1;
             Mouse.Timer = timer;
             timer.Interval = SleepTimePerClick;
-            timer.Elapsed += Timer_Tick;
+            timer.Elapsed += Timer_Tick_Right;
             timer.Start();
+        }
+
+        private static void Timer_Tick_Right(object sender, ElapsedEventArgs e) {
+            if (Mouse.Count >= 0) {
+                mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                Mouse.Count -= 1;
+            } else {
+                Mouse.Timer.Stop();
+                return;
+            }
         }
 
         public static void MouseMiddleClick(int Count, int SleepTimePerClick, System.Timers.Timer timer) {
@@ -121,24 +144,13 @@ namespace MouseClicker {
             Mouse.ClickType = 2;
             Mouse.Timer = timer;
             timer.Interval = SleepTimePerClick;
-            timer.Elapsed += Timer_Tick;
+            timer.Elapsed += Timer_Tick_Middle;
             timer.Start();
         }
-        
-        private static void Timer_Tick(object sender, EventArgs e) {
-            Action action;
-            switch (Mouse.ClickType) {
-                case 0:
-                    action = (() => { mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0); }); break;
-                case 1:
-                    action = (() => { mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0); }); break;
-                case 2:
-                    action = (() => { mouse_event(MOUSEEVENTF_MIDDLEDOWN | MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0); }); break;
-                default:
-                    throw new Exception("ClickType Argument Error");
-            }
+
+        private static void Timer_Tick_Middle(object sender, ElapsedEventArgs e) {
             if (Mouse.Count >= 0) {
-                action.Invoke();
+                mouse_event(MOUSEEVENTF_MIDDLEDOWN | MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
                 Mouse.Count -= 1;
             } else {
                 Mouse.Timer.Stop();

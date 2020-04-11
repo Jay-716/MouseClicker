@@ -129,6 +129,7 @@
             this.MaximizeBox = false;
             this.Name = "MyForm";
             this.Text = "MouseClicker";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
